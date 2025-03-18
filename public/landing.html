@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Verses</title>
+    <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>The Verses</h1>
+        <span id="userName"></span>
+    </header>
+
+    <main>
+        <h2>Which content do you want to upload?</h2>
+        <div class="options">
+            <button onclick="redirectTo('videos.html')">Videos</button>
+            <button onclick="redirectTo('storytelling.html')">Storytelling</button>
+            <button onclick="redirectTo('poems.html')">Poems</button>
+            <button onclick="redirectTo('others.html')">Others</button>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById("userName").innerText = localStorage.getItem("userName") || "Guest";
+        
+        function redirectTo(page) {
+            window.location.href = page;
+        }
+    </script>
+
+</body>
+</html>
