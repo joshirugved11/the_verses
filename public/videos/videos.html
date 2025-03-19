@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos - The Verses</title>
+    <link rel="stylesheet" href="./videos.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>The Verses</h1>
+        <span id="username">User</span>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <h2>Explore and Upload Videos</h2>
+
+        <!-- Section for Viewing Uploaded Videos -->
+        <section class="video-gallery">
+            <h3>Uploaded Videos</h3>
+            <div class="video-container" id="video-list">
+                <!-- Videos from database will be inserted here -->
+            </div>
+        </section>
+
+        <!-- Section for Uploading New Videos -->
+        <section class="upload-section">
+            <h3>Upload Your Video</h3>
+            <form id="upload-form">
+                <input type="file" id="video-upload" accept="video/*" required>
+                <button type="submit">Upload</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="videos.js"></script>
+</body>
+</html>
