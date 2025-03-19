@@ -1,155 +1,75 @@
-/* General Styling */
 body {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: Arial, sans-serif;
+    background-color: #FAF3E0;
     margin: 0;
     padding: 0;
-    background-color: antiquewhite;
+    text-align: center;
 }
 
-/* Header */
-header {
+.main-heading {
+    color: #6A9E34;
+    font-size: 2rem;
+    margin-top: 20px;
+}
+
+.form-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    background: #98ac04;
-    color: white;
-    padding: 15px;
+    margin-top: 20px;
 }
 
-header h1 {
-    margin: 0;
-}
-
-header span {
-    font-weight: bold;
-}
-
-/* Main Content */
-/* Center the form */
-main {
-    display: flex;
-    justify-content: center;  /* Centers content horizontally */
-    align-items: center;      /* Centers content vertically */
-    min-height: 100vh;        /* Makes sure it covers full height */
-    flex-direction: column;   /* Ensures items stack properly */
-}
-
-/* Headings */
-h2, h3 {
-    color: #98ac04;
-}
-
-/* Ensure form does not stretch too much */
 form {
-    width: 90%;
-    max-width: 500px;
-    background: white;
+    background-color: #fff;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    text-align: left; /* Ensures content inside stays aligned */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    text-align: left;
+}
+
+fieldset {
+    border: none;
+}
+
+legend {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
 }
 
 label {
-    margin-top: 10px;
     font-weight: bold;
+    display: block;
+    margin-top: 10px;
 }
 
 input, select, textarea {
+    width: 100%;
     padding: 8px;
     margin-top: 5px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-}
-
-/* Buttons */
-button {
-    padding: 10px 20px;
-    background: #98ac04;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-button:hover {
-    background: #7c8d03;
-}
-
-/* Options Section */
-.options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.options button {
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    background: #98ac04;
-    color: white;
-    border: none;
-    border-radius: 4px;
-}
-
-.options button:hover {
-    background: #7c8d03;
-}
-
-/* Video Gallery */
-.video-gallery {
-    width: 80%;
-    max-width: 800px;
-    margin-top: 20px;
-}
-
-.video-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
-    margin-top: 10px;
-}
-
-.video-container video {
-    width: 100%;
     border-radius: 5px;
 }
 
-/* Upload Section */
-.upload-section {
-    margin-top: 30px;
-}
-
-.upload-section form {
+.radio-group {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
 }
 
-.upload-section input {
-    margin-bottom: 10px;
+button {
+    background-color: #6A9E34;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    font-size: 1rem;
 }
 
-/* Mobile Styling */
-@media (max-width: 600px) {
-    header {
-        flex-direction: column;
-        text-align: center;
-        padding: 10px;
-    }
-
-    .options {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .options button {
-        width: 80%;
-        font-size: 14px;
-    }
+button:hover {
+    background-color: #558829;
 }
