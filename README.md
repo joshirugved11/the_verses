@@ -10,7 +10,7 @@ The Verses is a platform developed by Rugved, to give a separate platform to the
 
 3. After doing nessary changes, commit the changes to your cloned repo 
    1. Create a new branch for e.g **bug fixing**
-   2. Add the changes to your new branch and commit the changes **git add .** **git commit -m "initial commit"**
+   2. Add the changes to your new branch and commit the changes **git add .** and **git commit -m "initial commit"**
    3. Once you make the changes open a pull request to merge your changes
    4. If the changes are valid your pull request will be merged
   
