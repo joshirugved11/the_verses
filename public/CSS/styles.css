@@ -1,20 +1,9 @@
 /* General Styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-}
-
-/* Container */
-.container {
-    width: 90%;
-    max-width: 500px;
-    margin: 50px auto;
-    background: white;
-    padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    background-color: antiquewhite;
 }
 
 /* Header */
@@ -22,7 +11,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #333;
+    background: #98ac04;
     color: white;
     padding: 15px;
 }
@@ -35,10 +24,30 @@ header span {
     font-weight: bold;
 }
 
-/* Form Styling */
-form {
+/* Main Content */
+/* Center the form */
+main {
     display: flex;
-    flex-direction: column;
+    justify-content: center;  /* Centers content horizontally */
+    align-items: center;      /* Centers content vertically */
+    min-height: 100vh;        /* Makes sure it covers full height */
+    flex-direction: column;   /* Ensures items stack properly */
+}
+
+/* Headings */
+h2, h3 {
+    color: #98ac04;
+}
+
+/* Ensure form does not stretch too much */
+form {
+    width: 90%;
+    max-width: 500px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Ensures content inside stays aligned */
 }
 
 label {
@@ -51,58 +60,83 @@ input, select, textarea {
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-.radio-group {
-    display: flex;
-    gap: 10px;
-    align-items: center;
+    width: 100%;
 }
 
 /* Buttons */
 button {
-    margin-top: 15px;
-    padding: 10px;
-    background: #28a745;
+    padding: 10px 20px;
+    background: #98ac04;
     color: white;
     border: none;
-    cursor: pointer;
     border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
 button:hover {
-    background: #218838;
+    background: #7c8d03;
 }
 
-/* Landing Page Options */
+/* Options Section */
 .options {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
+    margin-top: 20px;
 }
 
 .options button {
     padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
-    background: #007bff;
+    background: #98ac04;
     color: white;
     border: none;
     border-radius: 4px;
 }
 
 .options button:hover {
-    background: #0056b3;
+    background: #7c8d03;
+}
+
+/* Video Gallery */
+.video-gallery {
+    width: 80%;
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+.video-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.video-container video {
+    width: 100%;
+    border-radius: 5px;
+}
+
+/* Upload Section */
+.upload-section {
+    margin-top: 30px;
+}
+
+.upload-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-section input {
+    margin-bottom: 10px;
 }
 
 /* Mobile Styling */
 @media (max-width: 600px) {
-    .container {
-        width: 95%;
-        padding: 15px;
-    }
-
     header {
         flex-direction: column;
         text-align: center;
