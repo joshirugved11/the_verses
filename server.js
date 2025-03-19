@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const multer = require("multer");
 require("dotenv").config();
 
 const app = express();
@@ -33,6 +34,46 @@ app.post("/submit-form", async (req, res) => {
         res.status(201).send("Form submitted successfully");
     } catch (error) {
         res.status(500).send("Error saving data");
+    }
+});
+
+const VideoSchema = new mongoose.Schema({
+    url: String,
+    uploadedBy: String
+});
+const video = mongoose.model("Video", VideoSchema, "videos");
+
+app.get("/get-videos", async (req, res) => {
+    try {
+        const videos = await Video.find({});
+        res.json(videos);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to fetch videos" });
+    }
+});
+
+// set storage engine
+const storage = multer.diskStorage({
+    destination: "public/uploads/",
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// Upload Route
+app.post("/upload-video", upload.single("video"), async (req, res) => {
+    try {
+        const video = new Video({
+            url: `/uploads/${req.file.filename}`,
+            uploadedBy: "Rugved Joshi" // Replace with actual user
+        });
+
+        await video.save();
+        res.json({ success: true, message: "Video uploaded successfully!" });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Upload failed!" });
     }
 });
 
