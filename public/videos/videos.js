@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", async () => {
     const videoList = document.getElementById("video-list");
     const username = document.getElementById("username");
-    
-    // Set the logged-in user (Replace with actual user data from backend)
-    username.textContent = "Rugved Joshi";
 
-    // Fetch and display uploaded videos
+    // Set logged-in username (Replace with actual login system)
+    username.textContent = localStorage.getItem("userName") || "Guest";
+
+    // Fetch Videos from Supabase
     async function fetchVideos() {
         try {
             let response = await fetch("/get-videos");
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     fetchVideos();
 
-    // Upload video function
+    // Upload Video Function
     document.getElementById("upload-form").addEventListener("submit", async (event) => {
         event.preventDefault();
 
@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         let formData = new FormData();
         formData.append("video", file);
+        formData.append("uploadedBy", localStorage.getItem("userName") || "Anonymous");
 
         try {
             let response = await fetch("/upload-video", {
