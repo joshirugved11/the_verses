@@ -1,19 +1,21 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const multer = require("multer");
-const { createClient } = require("@supabase/supabase-js");
+// require("dotenv").config();
+import dotenv from "dotenv";
+dotenv.config();
+import express, { json, urlencoded } from "express";
+import cors from "cors";
+import multer, { diskStorage } from "multer";
+import { createClient } from "@supabase/supabase-js";
 
 const app = express();
-app.use(express.json());
+app.use(json());
 app.use(cors());
-app.use(express.urlencoded({ extended: true }));
+app.use(urlencoded({ extended: true }));
 
 // Initialize Supabase
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 // Multer Storage Configuration for File Uploads
-const storage = multer.diskStorage({
+const storage = diskStorage({
     destination: (req, file, cb) => {
         cb(null, "uploads/");
     },
