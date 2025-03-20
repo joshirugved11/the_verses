@@ -1,80 +1,81 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const multer = require("multer");
 require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const multer = require("multer");
+const { createClient } = require("@supabase/supabase-js");
 
 const app = express();
+app.use(express.json());
 app.use(cors());
-app.use(bodyParser.json());
-app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log("MongoDB Connected"))
-  .catch(err => console.error("MongoDB Connection Error:", err));
+// Initialize Supabase
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
-const formSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    interests: String,
-    reason: String,
-    contribute: String,
-    improvements: String
+// Multer Storage Configuration for File Uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/");
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + "-" + file.originalname);
+    }
 });
+const upload = multer({ storage });
 
-const Form = mongoose.model("Form", formSchema);
-
+// ✅ Route for Form Submission
 app.post("/submit-form", async (req, res) => {
     try {
-        const formData = new Form(req.body);
-        await formData.save();
-        res.status(201).send("Form submitted successfully");
+        const { data, error } = await supabase
+            .from("forms")
+            .insert([req.body]);
+
+        if (error) throw error;
+        res.status(201).json({ success: true, message: "Form submitted successfully" });
     } catch (error) {
-        res.status(500).send("Error saving data");
+        console.error("Form Submission Error:", error);
+        res.status(500).json({ success: false, message: "Error saving form data" });
     }
 });
 
-const VideoSchema = new mongoose.Schema({
-    url: String,
-    uploadedBy: String
-});
-const video = mongoose.model("Video", VideoSchema, "videos");
-
+// ✅ Route to Fetch Uploaded Videos
 app.get("/get-videos", async (req, res) => {
     try {
-        const videos = await Video.find({});
-        res.json(videos);
+        const { data, error } = await supabase
+            .from("videos")
+            .select("*");
+
+        if (error) throw error;
+        res.json(data);
     } catch (error) {
-        res.status(500).json({ error: "Failed to fetch videos" });
+        console.error("Error fetching videos:", error);
+        res.status(500).json({ success: false, message: "Error fetching videos" });
     }
 });
 
-// set storage engine
-const storage = multer.diskStorage({
-    destination: "public/uploads/",
-    filename: (req, file, cb) => {
-        cb(null, file.originalname);
-    }
-});
-
-const upload = multer({ storage: storage });
-
-// Upload Route
+// ✅ Route for Video Upload
 app.post("/upload-video", upload.single("video"), async (req, res) => {
     try {
-        const video = new Video({
-            url: `/uploads/${req.file.filename}`,
-            uploadedBy: "Rugved Joshi" // Replace with actual user
-        });
+        const { data, error } = await supabase
+            .storage
+            .from("videos")
+            .upload(`uploads/${req.file.filename}`, req.file.buffer, { contentType: req.file.mimetype });
 
-        await video.save();
-        res.json({ success: true, message: "Video uploaded successfully!" });
+        if (error) throw error;
+
+        const videoURL = `${process.env.SUPABASE_URL}/storage/v1/object/public/videos/uploads/${req.file.filename}`;
+
+        await supabase.from("videos").insert([{ url: videoURL, uploadedBy: req.body.uploadedBy || "Anonymous" }]);
+
+        res.status(201).json({ success: true, message: "Video uploaded successfully!", videoURL });
     } catch (error) {
+        console.error("Video Upload Error:", error);
         res.status(500).json({ success: false, message: "Upload failed!" });
     }
 });
 
-app.listen(5000, () => console.log("Server running on http://localhost:5000"));
+// Start Server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
